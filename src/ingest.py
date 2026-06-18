@@ -127,15 +127,19 @@ def _merge_wc_teams(df: pd.DataFrame) -> None:
     raw = raw.set_index("team")
     rank_c = _guess_col(raw.reset_index(), ["fifa_rank", "rank"])
     conf_c = _guess_col(raw.reset_index(), ["confederation", "conf"])
+    grp_c = _guess_col(raw.reset_index(), ["group"])
     if rank_c:
         df["fifa_rank"] = df["team"].map(raw[rank_c]).fillna(df["fifa_rank"]).astype(int)
     if conf_c:
         df["confederation"] = df["team"].map(raw[conf_c]).fillna(df["confederation"])
-    # NOTE: the `group` column is deliberately NOT taken from this dataset. Its
-    # group letters reflect a different draw scenario (G<->H, K<->L swapped and a
-    # different composition) that is incompatible with the task-defined groups +
-    # hardcoded MD1. Config groups remain the single source of truth.
-    log.info("[real] merged wc_2026_teams.csv (confederation/fifa_rank; group kept from config)")
+    if grp_c:
+        # The real draw is authoritative. The hardcoded MD1 results map onto real
+        # first-round fixtures regardless of group label, so adopting the true
+        # group composition keeps MD2/MD3 (and the knockout sim) correct — without
+        # it the round-robin rotation would invent impossible ties (e.g. teams the
+        # real draw never pairs).
+        df["group"] = df["team"].map(raw[grp_c]).fillna(df["group"])
+    log.info("[real] merged wc_2026_teams.csv (group/confederation/fifa_rank)")
 
 
 def _merge_team_dataset(df: pd.DataFrame) -> None:
@@ -287,18 +291,20 @@ def _real_group_fixtures():
                     md2.append((r["t1"], r["t2"]))
                 elif md == 3:
                     md3.append((r["t1"], r["t2"]))
-        # Consistency guard: the fixtures dataset must agree with the task-defined
-        # group composition, else mixing the two corrupts the group simulation.
-        team_group = {t: m["group"] for t, m in C.TEAMS.items()}
+        # Sanity guard: every fixture must pair two teams from the SAME real group
+        # (as defined in this very file) and both must be known 2026 teams.
+        gmap = {}
+        for _, r in g.iterrows():
+            gmap[r["t1"]] = r[grp_c]; gmap[r["t2"]] = r[grp_c]
+        known = set(C.TEAMS)
         consistent = all(
-            team_group.get(h) is not None and team_group.get(h) == team_group.get(a)
+            h in known and a in known and gmap.get(h) == gmap.get(a)
             for h, a in md2 + md3
         )
         if len(md2) == 24 and len(md3) == 24 and consistent:
             log.info("[real] parsed MD2/MD3 fixtures from wc_2026_fixtures.csv")
             return md2, md3
-        log.info("[synthetic] wc_2026_fixtures.csv groups differ from task groups "
-                 "-> using config rotation for MD2/MD3 (team data still real)")
+        log.info("[synthetic] wc_2026_fixtures.csv inconsistent -> config rotation")
         return None
     except Exception as exc:  # noqa: BLE001
         log.warning("failed parsing wc_2026_fixtures.csv (%s) -> config rotation", exc)

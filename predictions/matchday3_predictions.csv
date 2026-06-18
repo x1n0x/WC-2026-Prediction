@@ -1,25 +1,25 @@
 match_id,home_team,away_team,p_home_win,p_draw,p_away_win,predicted_outcome,confidence,model
-MD3_01,Czechia,Mexico,0.5563,0.2473,0.1964,home_win,0.5563,ensemble
-MD3_02,South Africa,South Korea,0.4898,0.2297,0.2805,home_win,0.4898,ensemble
-MD3_03,Switzerland,Canada,0.7296,0.1676,0.1028,home_win,0.7296,ensemble
-MD3_04,Bosnia,Qatar,0.8692,0.0902,0.0406,home_win,0.8692,ensemble
-MD3_05,Scotland,Brazil,0.1493,0.1936,0.6571,away_win,0.6571,ensemble
-MD3_06,Morocco,Haiti,0.6963,0.1772,0.1265,home_win,0.6963,ensemble
-MD3_07,Turkey,USA,0.6234,0.1847,0.1919,home_win,0.6234,ensemble
-MD3_08,Paraguay,Australia,0.3468,0.2698,0.3834,away_win,0.3834,ensemble
-MD3_09,Ecuador,Germany,0.1545,0.2422,0.6033,away_win,0.6033,ensemble
-MD3_10,Curacao,Ivory Coast,0.416,0.2731,0.3109,home_win,0.416,ensemble
-MD3_11,Tunisia,Netherlands,0.1198,0.1783,0.7019,away_win,0.7019,ensemble
-MD3_12,Japan,Sweden,0.3277,0.2582,0.4141,away_win,0.4141,ensemble
-MD3_13,Egypt,Spain,0.2067,0.3368,0.4565,away_win,0.4565,ensemble
-MD3_14,Cape Verde,Belgium,0.3894,0.2627,0.3479,home_win,0.3894,ensemble
-MD3_15,New Zealand,Saudi Arabia,0.2523,0.2169,0.5308,away_win,0.5308,ensemble
-MD3_16,Uruguay,Iran,0.6792,0.2048,0.116,home_win,0.6792,ensemble
-MD3_17,Norway,France,0.4381,0.2535,0.3084,home_win,0.4381,ensemble
-MD3_18,Senegal,Iraq,0.7074,0.2063,0.0863,home_win,0.7074,ensemble
-MD3_19,Jordan,Argentina,0.2892,0.2501,0.4607,away_win,0.4607,ensemble
-MD3_20,Algeria,Austria,0.2649,0.2318,0.5033,away_win,0.5033,ensemble
-MD3_21,Croatia,Portugal,0.4428,0.2688,0.2884,home_win,0.4428,ensemble
-MD3_22,DR Congo,England,0.272,0.2826,0.4454,away_win,0.4454,ensemble
-MD3_23,Colombia,Ghana,0.5286,0.2447,0.2267,home_win,0.5286,ensemble
-MD3_24,Panama,Uzbekistan,0.0919,0.135,0.7731,away_win,0.7731,ensemble
+MD3_01,Czechia,Mexico,0.563,0.2372,0.1998,home_win,0.563,ensemble
+MD3_02,South Africa,South Korea,0.4891,0.2247,0.2862,home_win,0.4891,ensemble
+MD3_03,Switzerland,Canada,0.7224,0.1703,0.1073,home_win,0.7224,ensemble
+MD3_04,Bosnia,Qatar,0.8595,0.093,0.0475,home_win,0.8595,ensemble
+MD3_05,Scotland,Brazil,0.1487,0.1932,0.6581,away_win,0.6581,ensemble
+MD3_06,Morocco,Haiti,0.6894,0.1871,0.1235,home_win,0.6894,ensemble
+MD3_07,Turkey,USA,0.6168,0.1912,0.192,home_win,0.6168,ensemble
+MD3_08,Paraguay,Australia,0.3477,0.2695,0.3828,away_win,0.3828,ensemble
+MD3_09,Ecuador,Germany,0.1584,0.2381,0.6035,away_win,0.6035,ensemble
+MD3_10,Curacao,Ivory Coast,0.4192,0.272,0.3088,home_win,0.4192,ensemble
+MD3_11,Japan,Sweden,0.3324,0.2559,0.4117,away_win,0.4117,ensemble
+MD3_12,Tunisia,Netherlands,0.1173,0.1781,0.7046,away_win,0.7046,ensemble
+MD3_13,Egypt,Iran,0.4195,0.3596,0.2209,home_win,0.4195,ensemble
+MD3_14,New Zealand,Belgium,0.1385,0.1807,0.6808,away_win,0.6808,ensemble
+MD3_15,Cape Verde,Saudi Arabia,0.5737,0.217,0.2093,home_win,0.5737,ensemble
+MD3_16,Uruguay,Spain,0.3927,0.2823,0.325,home_win,0.3927,ensemble
+MD3_17,Norway,France,0.438,0.2481,0.3139,home_win,0.438,ensemble
+MD3_18,Senegal,Iraq,0.7075,0.2029,0.0896,home_win,0.7075,ensemble
+MD3_19,Algeria,Austria,0.2651,0.223,0.5119,away_win,0.5119,ensemble
+MD3_20,Jordan,Argentina,0.2861,0.2449,0.469,away_win,0.469,ensemble
+MD3_21,Colombia,Portugal,0.4864,0.2543,0.2593,home_win,0.4864,ensemble
+MD3_22,DR Congo,Uzbekistan,0.4419,0.26,0.2981,home_win,0.4419,ensemble
+MD3_23,Panama,England,0.0397,0.0871,0.8732,away_win,0.8732,ensemble
+MD3_24,Croatia,Ghana,0.4912,0.2544,0.2544,home_win,0.4912,ensemble

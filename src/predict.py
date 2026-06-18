@@ -80,6 +80,8 @@ def simulate(fitted: dict, teams: pd.DataFrame, hist: pd.DataFrame,
              n_sims: int = 2000, seed: int = C.SEED):
     rng = np.random.default_rng(seed)
     elo = teams.set_index("team")["elo"].to_dict()
+    # group membership comes from the (real) merged teams table, not config
+    group_teams = teams.groupby("group")["team"].apply(list).to_dict()
 
     group_probs = _group_match_probs(fitted, teams, hist, md1, md2, md3)
     md1_points = _md1_points(md1)
@@ -89,7 +91,7 @@ def simulate(fitted: dict, teams: pd.DataFrame, hist: pd.DataFrame,
     champion = {t: 0 for t in C.TEAMS}
 
     for _ in range(n_sims):
-        standings = _simulate_groups(rng, md1_points, group_probs)
+        standings = _simulate_groups(rng, md1_points, group_probs, group_teams)
         qualifiers = _select_qualifiers(standings, elo)
         for g, ranked in standings.items():
             win_group[ranked[0][0]] += 1
@@ -125,7 +127,7 @@ def _md1_points(md1: pd.DataFrame) -> dict:
     return {"pts": pts, "gd": gd}
 
 
-def _simulate_groups(rng, md1_points, group_probs):
+def _simulate_groups(rng, md1_points, group_probs, group_teams):
     pts = dict(md1_points["pts"])
     gd = dict(md1_points["gd"])
     for (h, a), p in group_probs.items():
@@ -137,8 +139,7 @@ def _simulate_groups(rng, md1_points, group_probs):
         else:             # away win
             pts[a] += 3; gd[a] += 1; gd[h] -= 1
     standings = {}
-    for g in C.GROUPS:
-        teams_g = C.GROUP_TEAMS[g]
+    for g, teams_g in group_teams.items():
         ranked = sorted(teams_g, key=lambda t: (pts[t], gd[t], rng.random()),
                         reverse=True)
         standings[g] = [(t, pts[t], gd[t]) for t in ranked]
