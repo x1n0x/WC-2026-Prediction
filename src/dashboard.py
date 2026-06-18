@@ -521,7 +521,11 @@ def build() -> str:
             .replace("/*MODELS_RU*/", json.dumps(MODELS_RU, ensure_ascii=False)))
     out = C.ROOT / "dashboard.html"
     out.write_text(html, encoding="utf-8")
-    log.info("bilingual dashboard -> %s (%d MD2, %d title contenders)",
+    # index.html is a copy so GitHub Pages serves the dashboard at the site root.
+    (C.ROOT / "index.html").write_text(html, encoding="utf-8")
+    # .nojekyll tells GitHub Pages to serve files as-is (no Jekyll processing).
+    (C.ROOT / ".nojekyll").write_text("", encoding="utf-8")
+    log.info("bilingual dashboard -> %s (+ index.html for Pages) (%d MD2, %d contenders)",
              out.name, data["n_md2"], len(data["favourites"]))
     return str(out)
 
