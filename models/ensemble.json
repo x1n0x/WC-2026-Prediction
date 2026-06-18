@@ -1,0 +1,21 @@
+{
+  "lgbm_weight": 0.0,
+  "poisson_weight": 1.0,
+  "val_log_loss": 0.9729493748062277,
+  "best_lgbm_params": {
+    "num_leaves": 112,
+    "max_depth": 3,
+    "learning_rate": 0.05372190936246824,
+    "n_estimators": 165,
+    "min_child_samples": 59,
+    "subsample": 0.8234750130079573,
+    "colsample_bytree": 0.6182017660490007,
+    "reg_alpha": 1.4409991587932507,
+    "reg_lambda": 2.8856898967828557
+  },
+  "roi_backtest": {
+    "n_bets": 12,
+    "roi": -0.0192,
+    "pnl": -0.23
+  }
+}

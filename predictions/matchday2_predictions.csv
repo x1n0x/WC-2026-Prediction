@@ -1,0 +1,25 @@
+match_id,home_team,away_team,p_home_win,p_draw,p_away_win,predicted_outcome,confidence,model
+MD2_01,Mexico,South Korea,0.5683,0.2318,0.1999,home_win,0.5683,ensemble
+MD2_02,Czechia,South Africa,0.7007,0.1694,0.1299,home_win,0.7007,ensemble
+MD2_03,Canada,Qatar,0.4968,0.286,0.2172,home_win,0.4968,ensemble
+MD2_04,Switzerland,Bosnia,0.384,0.2189,0.3971,away_win,0.3971,ensemble
+MD2_05,Brazil,Haiti,0.9088,0.0638,0.0274,home_win,0.9088,ensemble
+MD2_06,Scotland,Morocco,0.312,0.2827,0.4053,away_win,0.4053,ensemble
+MD2_07,USA,Australia,0.5339,0.2276,0.2385,home_win,0.5339,ensemble
+MD2_08,Turkey,Paraguay,0.7687,0.138,0.0933,home_win,0.7687,ensemble
+MD2_09,Germany,Ivory Coast,0.7435,0.1585,0.098,home_win,0.7435,ensemble
+MD2_10,Ecuador,Curacao,0.3729,0.3147,0.3124,home_win,0.3729,ensemble
+MD2_11,Netherlands,Sweden,0.609,0.2131,0.1779,home_win,0.609,ensemble
+MD2_12,Tunisia,Japan,0.319,0.2676,0.4134,away_win,0.4134,ensemble
+MD2_13,Spain,Belgium,0.5155,0.2609,0.2236,home_win,0.5155,ensemble
+MD2_14,Egypt,Cape Verde,0.3063,0.3266,0.3671,away_win,0.3671,ensemble
+MD2_15,Saudi Arabia,Iran,0.4977,0.2513,0.251,home_win,0.4977,ensemble
+MD2_16,New Zealand,Uruguay,0.0982,0.1659,0.7359,away_win,0.7359,ensemble
+MD2_17,France,Iraq,0.8214,0.1342,0.0444,home_win,0.8214,ensemble
+MD2_18,Norway,Senegal,0.5893,0.2289,0.1818,home_win,0.5893,ensemble
+MD2_19,Argentina,Austria,0.551,0.1886,0.2604,home_win,0.551,ensemble
+MD2_20,Jordan,Algeria,0.4815,0.28,0.2385,home_win,0.4815,ensemble
+MD2_21,Portugal,England,0.3419,0.2836,0.3745,away_win,0.3745,ensemble
+MD2_22,Croatia,DR Congo,0.5335,0.2517,0.2148,home_win,0.5335,ensemble
+MD2_23,Ghana,Uzbekistan,0.5028,0.2376,0.2596,home_win,0.5028,ensemble
+MD2_24,Colombia,Panama,0.9406,0.0418,0.0176,home_win,0.9406,ensemble

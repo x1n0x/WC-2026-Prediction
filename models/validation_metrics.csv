@@ -1,0 +1,6 @@
+model,accuracy,log_loss,brier
+baseline,0.5,1.0699,0.6396
+poisson,0.5417,0.9729,0.5979
+bradley_terry,0.4583,1.0708,0.6513
+lightgbm,0.4167,1.3137,0.7829
+ensemble,0.5417,0.9729,0.5979
