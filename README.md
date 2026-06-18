@@ -203,8 +203,13 @@ build step.
 ### Primary output — `predictions/matchday2_predictions.csv`
 
 ```
-match_id | home_team | away_team | p_home_win | p_draw | p_away_win | predicted_outcome | confidence | model
+match_id | home_team | away_team | p_home_win | p_draw | p_away_win |
+predicted_outcome | predicted_score | exp_home_goals | exp_away_goals | confidence | model
 ```
+
+`predicted_score` is the most-likely correct score (Poisson), constrained to
+agree with the W/D/L pick; `exp_home_goals` / `exp_away_goals` are the Poisson
+expected goals (xG-style).
 
 ---
 

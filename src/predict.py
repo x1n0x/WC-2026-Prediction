@@ -32,7 +32,8 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 log = logging.getLogger("predict")
 
 PRED_COLUMNS = ["match_id", "home_team", "away_team", "p_home_win", "p_draw",
-                "p_away_win", "predicted_outcome", "confidence", "model"]
+                "p_away_win", "predicted_outcome", "predicted_score",
+                "exp_home_goals", "exp_away_goals", "confidence", "model"]
 
 
 def ensemble_proba(fitted: dict, X: pd.DataFrame,
@@ -55,6 +56,13 @@ def predict_matchday(fitted: dict, fixtures_df: pd.DataFrame, teams, hist,
     out["p_draw"] = proba[:, 1].round(4)
     out["p_away_win"] = proba[:, 2].round(4)
     out["predicted_outcome"] = [F.CLASS_NAMES[p] for p in preds]
+    # Most-likely correct score (Poisson), constrained to agree with the W/D/L pick.
+    poisson = fitted["poisson"]
+    scores = [poisson.scoreline(h, a, outcome=F.CLASS_NAMES[p])
+              for (h, a), p in zip(fixtures, preds)]
+    out["predicted_score"] = [f"{s[2]}-{s[3]}" for s in scores]
+    out["exp_home_goals"] = [s[0] for s in scores]
+    out["exp_away_goals"] = [s[1] for s in scores]
     out["confidence"] = proba.max(axis=1).round(4)
     out["model"] = "ensemble"
     return out[PRED_COLUMNS]

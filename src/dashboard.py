@@ -88,6 +88,7 @@ I18N = {
         "legend_home": "Home win", "legend_draw": "Draw", "legend_away": "Away win",
         "legend_note": "Bars = win/draw/loss probability · pick = highest probability",
         "confidence_word": "confidence", "pick_draw": "Draw",
+        "score_word": "score", "xg_word": "xG",
         "s3_num": "03 / KNOCKOUT QUALIFICATION", "s3_h": "Group Advancement",
         "s3_p": "Probability each team reaches the Round of 32 (top 2 + 8 best thirds).",
         "group_card": "Group",
@@ -120,6 +121,7 @@ I18N = {
         "legend_home": "Победа хозяев", "legend_draw": "Ничья", "legend_away": "Победа гостей",
         "legend_note": "Полоса = вероятность победы/ничьи/поражения · выбор = наибольшая вероятность",
         "confidence_word": "уверенность", "pick_draw": "Ничья",
+        "score_word": "счёт", "xg_word": "xG",
         "s3_num": "03 / ВЫХОД В ПЛЕЙ-ОФФ", "s3_h": "Выход из группы",
         "s3_p": "Вероятность выйти в 1/16 финала (топ-2 + 8 лучших третьих).",
         "group_card": "Группа",
@@ -150,12 +152,16 @@ def collect_data() -> dict:
     ensemble = json.loads(ens_path.read_text()) if ens_path.exists() else {}
 
     def matches(df):
+        def g(r, col, d=None):
+            return r[col] if col in df.columns else d
         return [dict(
             home=r["home_team"], away=r["away_team"],
             hf=FLAGS.get(r["home_team"], "⚽"), af=FLAGS.get(r["away_team"], "⚽"),
             ph=round(float(r["p_home_win"]) * 100, 1), pd=round(float(r["p_draw"]) * 100, 1),
             pa=round(float(r["p_away_win"]) * 100, 1),
             outcome=r["predicted_outcome"], conf=round(float(r["confidence"]) * 100, 1),
+            score=g(r, "predicted_score", ""),
+            xgh=g(r, "exp_home_goals", ""), xga=g(r, "exp_away_goals", ""),
         ) for _, r in df.iterrows()]
 
     fav = []
@@ -310,6 +316,9 @@ section{margin-top:74px}
 .pill.a{background:rgba(255,106,85,.14); color:var(--away); border:1px solid rgba(255,106,85,.3)}
 .conf{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--mut)}
 .conf b{color:var(--txt)}
+.score{font-family:'Anton',sans-serif; font-size:21px; letter-spacing:.04em; color:var(--txt);
+  background:var(--bg); border:1px solid var(--line2); border-radius:8px; padding:1px 13px; line-height:1.25}
+.score small{font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--mut); letter-spacing:.16em; text-transform:uppercase; display:block; line-height:1; margin-top:-1px}
 .legend{display:flex; gap:20px; margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--mut); letter-spacing:.06em; flex-wrap:wrap}
 .legend span{display:flex; align-items:center; gap:7px}
 .dot{width:11px; height:11px; border-radius:3px; display:inline-block}
@@ -455,7 +464,8 @@ function renderMatches(){
       </div>
       <div class="mbot">
         <span class="pill ${cls[m.outcome]}">${m.outcome==='draw'?L.pick_draw:(m.outcome==='home_win'?tn(m.home):tn(m.away))}</span>
-        <span class="conf">${L.confidence_word} <b>${m.conf}%</b></span>
+        ${m.score?`<span class="score">${String(m.score).replace('-','–')}<small>${L.score_word}</small></span>`:''}
+        <span class="conf">${L.confidence_word} <b>${m.conf}%</b>${m.xgh!==''?` · xG ${m.xgh}–${m.xga}`:''}</span>
       </div></div>`).join('');
 }
 

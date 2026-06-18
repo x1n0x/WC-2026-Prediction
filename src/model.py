@@ -134,6 +134,31 @@ class PoissonModel:
             out[i, 2] = np.mean(gh < ga)
         return out
 
+    def scoreline(self, home: str, away: str, outcome: str | None = None,
+                  max_goals: int = 8):
+        """Expected goals and most-likely correct score for a fixture.
+
+        ``exp_h/exp_a`` are the Poisson means (xG-style). The modal score is the
+        most probable (i, j) on a 0..max_goals grid; if ``outcome`` is given the
+        search is restricted to that result class so the score always agrees with
+        the predicted W/D/L pick.
+        """
+        from scipy.stats import poisson as _po
+        lam_h, lam_a = self._lambdas(home, away)
+        ks = np.arange(max_goals + 1)
+        joint = np.outer(_po.pmf(ks, lam_h), _po.pmf(ks, lam_a))  # joint[i, j]
+        if outcome is not None:
+            I, J = np.indices(joint.shape)
+            if outcome == "home_win":
+                mask = I > J
+            elif outcome == "away_win":
+                mask = I < J
+            else:  # draw
+                mask = I == J
+            joint = np.where(mask, joint, -1.0)
+        i, j = np.unravel_index(int(np.argmax(joint)), joint.shape)
+        return round(float(lam_h), 2), round(float(lam_a), 2), int(i), int(j)
+
     def params_dict(self) -> dict:
         return dict(intercept=self.intercept_, home_adv=self.home_adv_,
                     attack=self.attack_, defense=self.defense_,
